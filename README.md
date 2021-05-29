@@ -1,11 +1,10 @@
 # OrcVIO-Lite
 
-Object residual constrained Visual-Inertial Odometry (OrcVIO) is a visual-inertial odometry pipeline, which is tightly coupled with tracking and optimization over structured object models. It provides accurate trajectory estimation and large-scale object-level mapping from online **Mono+IMU** data.
-
+- Object residual constrained Visual-Inertial Odometry (OrcVIO) is a visual-inertial odometry pipeline, which is tightly coupled with tracking and optimization over structured object models. It provides accurate trajectory estimation and large-scale object-level mapping from online **Mono+IMU** data.
 OrcVIO-Lite only uses **bounding boxs** and no keypoints. The object mapping module and VIO module are implemented in separate ROS nodelets and are decoupled.  
 
-Related publication: [OrcVIO: Object residual constrained Visual-Inertial Odometry](https://arxiv.org/pdf/2007.15107.pdf)
-
+- Related publication: [OrcVIO: Object residual constrained Visual-Inertial Odometry](https://arxiv.org/pdf/2007.15107.pdf), this is the journal version submitted t T-RO. 
+- [Project website](http://me-llamo-sean.cf/orcvio_githubpage/)
 
 
 ## 1. Prerequisites
@@ -134,7 +133,7 @@ $ roslaunch orcvio orcvio_rs_d435i_offline.launch path_bag:=/PATH_TO_ERL_DATASET
 
 
 
-### 3.??? Unclassified demos
+### 3.??? Unclassified demos (TODO)
 
 - Download [this rosbag](https://drive.google.com/file/d/1rrEoUi1jyiaoN-rcMQHS53vVrFUN57oc/view?usp=sharing) and change the bag file path in the launch file, run `roslaunch orcvio orcvio_kitti_object.launch` in `ros_wrapper` folder will output similar results with [this demo](https://youtu.be/VlnG64WS434)
 - Use [this rosbag](https://drive.google.com/file/d/1MnLzq2nWBRPx3OhSz0i26ZvOufre_EWn/view?usp=sharing), run `roslaunch orcvio orcvio_medfield_object.launch`, will output [this demo](https://youtu.be/Ia7vIo3eI5A)
@@ -164,23 +163,25 @@ $ roslaunch orcvio orcvio_rs_d435i_offline.launch path_bag:=/PATH_TO_ERL_DATASET
 ## Citation
 
 ```
-@inproceedings{orcvio,
-  title = {OrcVIO: Object residual constrained Visual-Inertial Odometry},
+@article{orcvio,
+  title={OrcVIO: Object residual constrained Visual-Inertial Odometry},
   author={M. {Shan} and Q. {Feng} and N. {Atanasov}},
-  year = {2020},
-  booktitle={IEEE Intl. Conf. on Intelligent Robots and Systems (IROS).},
-  url = {https://moshanatucsd.github.io/orcvio_githubpage/},
-  pdf = {https://arxiv.org/abs/2007.15107}
-}
+  url = {http://erl.ucsd.edu/pages/orcvio.html},
+  pdf = {https://arxiv.org/abs/2007.15107},
+  journal={IEEE Transactions on Robotics},
+  volume={},
+  number={},
+  pages={},
+  year={2021},
+  publisher={IEEE}
+}    
 ```
 
 
 
 ## Acknowledgement
 
-balabalabalas
-
-
+- [ ] TODO
 
 ## License
 
