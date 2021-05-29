@@ -1,0 +1,99 @@
+<launch>
+
+  <arg name="robot" default="orcvio_robot"/>
+  <arg name="fixed_frame_id" default="world"/>
+
+  <arg name="visualize_rviz_arg" default="true" />
+  <!-- <arg name="visualize_rviz_arg" default="false" /> -->
+
+  <group ns="$(arg robot)">
+    <!-- System Manager Nodelet  -->
+    <node pkg="nodelet" type="nodelet" name="system"
+      args='standalone orcvio/SystemNodelet'
+      output="screen">
+
+      <param name="fixed_frame_id" value="$(arg fixed_frame_id)"/>
+      <param name="child_frame_id" value="odom"/>
+
+      <remap from="~imu" to="/kitti/oxts/imu"/>
+      <!-- <remap from="~cam0_image" to="/kitti/camera_color_left/image"/> -->
+      <remap from="~cam0_image" to="/kitti/camera_gray_left/image"/>
+
+      <param name="config_file" value="$(find orcvio)/../../../config/kitti.yaml"/>
+      <param name="result_file" value="$(find orcvio)/../../../cache/temp_rmse.txt"/>
+
+      <param name="output_dir_traj"  type="string" value="/home/erl/Workspace/orcvio-lite/cache" />
+
+      <param name="load_groundtruth_flag" type="int" value="0"/>
+      <!-- <param name="use_left_perturbation_flag" type="int" value="1" /> -->
+
+    </node>
+
+    <!-- Object Mapper Nodelet  -->
+    <!-- <node pkg="nodelet" type="nodelet" name="ObjectMapper"
+      args="standalone orcvio/ObjectMapperNodelet" > -->
+    
+    <!-- to see output in terminal  -->
+    <node pkg="nodelet" type="nodelet" name="ObjectMapper"
+      args="standalone orcvio/ObjectMapperNodelet"
+      output="screen">
+
+    <!-- to use gdb  -->
+    <!-- <node pkg="nodelet" type="nodelet" name="ObjectMapper"
+      args="standalone orcvio/ObjectMapperNodelet"
+      output="screen"
+      launch-prefix="xterm -e gdb dash-args"
+      > -->
+
+          <param name="fixed_frame_id" value="$(arg fixed_frame_id)"/>
+
+          <!-- camera extrinsics -->
+          <!-- TODO FIXME need to change this for every kitti date, make it load from camera info topic -->
+          <rosparam param="T_cam_imu">
+              [
+              -0.00108864, -0.99997635,  0.00678718, -0.25008612,
+              -0.00851207, -0.00677767, -0.99994087,  0.73412053,
+              0.99996318, -0.00114634, -0.00850449, -1.13803616,
+              0.0,         0.0,         0.0,         1.0
+              ]
+          </rosparam>
+
+          <!-- bag topics -->
+          <param name="topic_bbox"  type="string" value="/sort_ros/tracked_bounding_boxes" />
+          <!-- <param name="topic_image"  type="string" value="/kitti/camera_color_left/image" />
+          <param name="topic_caminfo"  type="string" value="/kitti/camera_color_left/camera_info" /> -->
+          <param name="topic_image"  type="string" value="/kitti/camera_gray_left/image" />
+          <param name="topic_caminfo"  type="string" value="/kitti/camera_gray_left/camera_info" />          
+          <param name="topic_pose"  type="string" value="/orcvio_robot/system/poseout" />
+
+          <param name="max_object_feature_track"             type="int"    value="20" />
+          <param name="min_object_feature_track"               type="int"    value="5" />
+
+          <!-- object feature -->
+          <rosparam command="load" file="$(find orcvio)/../../../config/object_feat.yaml"/>
+          <param name="load_gt_object_info_flag"  type="bool" value="false" />
+
+          <param name="to_color_image_flag"  type="bool" value="true" />
+          <!-- <param name="to_color_image_flag"  type="bool" value="false" /> -->
+          <param name="use_unity_dataset_flag"  type="bool" value="false" />
+
+          <!-- this has to be consistent with VIO config  -->
+          <param name="use_left_perturbation_flag"  type="bool" value="true" />
+          
+          <param name="use_new_bbox_residual_flag"  type="bool" value="false" />
+
+          <param name="result_dir_path_2d_bbox" value="$(find orcvio)/../../../cache/object_2d_bbox_info.txt"/>
+
+    </node>
+  </group>
+
+    <!-- play the dataset -->
+    <!-- rosbag for VIO and object detection  -->
+    <node pkg="rosbag" type="play" name="rosbag" args="/media/erl/disk1/orcvio/kitti_rosbags/kitti_odom06_with_bbox.bag" required="true"/>
+
+    <!-- open rviz  -->
+    <group if="$(arg visualize_rviz_arg)" >
+      <node type="rviz" name="rviz" pkg="rviz" args="-d $(find orcvio)/../../../ros_wrapper/src/orcvio/launch/rviz/orcvio_kitti_object.rviz" />
+    </group>
+
+</launch>

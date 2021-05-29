@@ -1,0 +1,28 @@
+FROM ros:kinetic-ros-core-xenial
+ENV REPO_CLONE /home/root/orcvio-lite
+ENV CATKIN_WORKSPACE $REPO_CLONE/ros_wrapper/
+RUN mkdir -p $REPO_CLONE/
+COPY cmake $REPO_CLONE/
+COPY include $REPO_CLONE/
+COPY src $REPO_CLONE/
+COPY config $REPO_CLONE/
+COPY ros_wrapper/src $CATKIN_WORKSPACE/src
+WORKDIR $CATKIN_WORKSPACE
+RUN apt-get update && \
+    apt-get install -y python-pip && \
+    pip install --upgrade pip && \
+    pip install catkin-tools catkin-pkg rospkg rosdep && \
+    cp rosdep.yaml /etc/ros/rosdep/sources.list.d/19-orcvio-lite.yaml && \
+    echo "yaml /etc/ros/rosdep/sources.list.d/19-orcvio-lite.yaml" > /etc/ros/rosdep/sources.list.d/19-orcvio-lite.list && \
+    rosdep init && \
+    rosdep update && \
+    rosdep install -y -r --ignore-src --from-path src && \
+    rm -rf /var/lib/apt/lists/*
+
+
+
+
+
+
+
+

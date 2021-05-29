@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <arg name="nodelet_manager" default="sort_ros_nodelet_manager" />
+
+  <node pkg="rosbag" type="play" name="player" output="screen" args="--clock /home/erl/moshan/open_orcvio/catkin_ws_sort/data/leather_chair.bag -q"/>
+  
+  <include file="$(find darknet_ros)/launch/darknet_ros.launch" >
+    <arg name="image" value="/camera/image_raw" />
+  </include>
+
+  <node pkg="nodelet" type="nodelet" name="SortRos"
+    args="standalone sort_ros/SortRos"
+    output="screen">
+  <param name="image_topic" value="camera/image_raw" />
+  <param name="max_age" value="100" />
+  <param name="min_hits" value="5" />
+  <param name="iou_threshold" value="0" />
+  </node>
+
+  <!-- <node type="rviz" name="rviz" pkg="rviz" args="-d $(find sort_ros)/launch/display.rviz" /> -->
+  <node pkg="rqt_image_view" type="rqt_image_view" name="rqt_image_view_det" args=" /SortRos/detection_image/compressed"/>
+
+</launch>

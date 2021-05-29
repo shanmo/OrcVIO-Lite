@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+  <arg name="name" doc="Robot name; used for namespacing." />
+
+  <!-- bag parameters -->
+  <arg name="imu_topic"
+       default="/$(arg name)/forward/imu"
+      doc="ROS topic broadcasting raw imu data." />
+  <arg name="image_topic" 
+       default="/$(arg name)/forward/color/image_rect_raw"
+      doc="ROS topic broadcasting rectified camera #1" />
+  <arg name="detection_topic" 
+       default="/$(arg name)/detection_out_topic"
+      doc="ROS topic broadcasting detected bounding boxes" />
+  <arg name="camera_info_topic" 
+       default="/$(arg name)/forward/color/camera_info"
+      doc="ROS topic broadcasting detected bounding boxes" />
+  <arg name="visualize_markers_topic"  default="$(arg name)/orcvio/quadrics" 
+      doc="ROS topic broadcasting visualization markers" />
+  <arg name="arl_detected_objects_topic"  default="$(arg name)/orcvio/arl_detected_objects" 
+      doc="ROS topic broadcasting visualization markers" />
+  <arg name="poseout_topic" default="/$(arg name)/orcvio_system/poseout" />
+
+
+  <!-- optional args -->
+  <arg name="machine" default="localhost" />
+  <arg name="fixed_frame_id" default="$(arg name)/odom" />
+  <arg name="base_frame_id" default="$(arg name)/forward_link" />
+  <arg name="publish_tf" default="true" />
+
+  <arg name="evaluation_mode" default="false" 
+    doc="Evaluation mode is used to compare the results of different flags" />
+  <arg name="visualize_rviz" default="true" />
+  <arg name="path_bag" default="/media/erl/disk1/orcvio/mit_rosbags/phoenix_stack/mit_test_2020-11-20-11-31-53.bag" />
+
+  <node pkg="rosbag" type="play" name="rosbag" args="$(arg path_bag)" >
+  </node>
+  <node name="republish" type="republish" pkg="image_transport" output="screen" args="compressed in:=/$(arg name)/forward/color/image_raw raw out:=$(arg image_topic)" />
+  <include file="$(find orcvio)/launch/phoenix/orcvio_phoenix_r1_odometry.launch" >
+    <arg name="name" value="$(arg name)" />
+    <arg name="machine" value="$(arg machine)" />
+    <arg name="fixed_frame_id" value="$(arg fixed_frame_id)" />
+    <arg name="base_frame_id" value="$(arg base_frame_id)" />
+    <arg name="imu_topic" value="$(arg imu_topic)" />
+    <arg name="image_topic" value="$(arg image_topic)" />
+    <arg name="detection_topic" value="$(arg detection_topic)" />
+    <arg name="camera_info_topic" value="$(arg camera_info_topic)" />
+    <arg name="poseout_topic" value="$(arg poseout_topic)" />
+  </include>
+
+  <include file="$(find orcvio)/launch/phoenix/orcvio_phoenix_r1_object_pose_estimation.launch" >
+    <arg name="name" value="$(arg name)" />
+    <arg name="fixed_frame_id" value="$(arg fixed_frame_id)" />
+    <arg name="base_frame_id" value="$(arg base_frame_id)" />
+    <arg name="image_topic" value="$(arg image_topic)" />
+    <arg name="detection_topic" value="$(arg detection_topic)" />
+    <arg name="camera_info_topic" value="$(arg camera_info_topic)" />
+    <arg name="poseout_topic" value="$(arg poseout_topic)" />
+    <arg name="visualize_markers_topic" value="$(arg visualize_markers_topic)" />
+  </include>
+
+</launch>

@@ -1,0 +1,22 @@
+ROOT_DIR="%ROOT_DIR%"
+
+prependonce() {
+    local envname="$1";
+    local envval="";
+    eval envval="\$$envname";
+    local ppath="${2}";
+    if [ ! -d "$ppath" ]; then
+        echo "No such directory $ppath"
+        return
+    fi
+    if [[ ":$envval:" != "*:$ppath:*" ]]; then
+        eval ${envname}="${ppath}:$envval"
+    else
+        echo "$ppath already exists in ${envname} $envval"
+    fi
+}
+
+export CMAKE_PREFIX_PATH="$ROOT_DIR":$CMAKE_PREFIX_PATH
+export C_INCLUDE_DIR="$ROOT_DIR/include":$C_INCLUDE_DIR
+export LD_LIBRARY_PATH="$ROOT_DIR/lib":$LD_LIBRARY_PATH
+export PYTHONPATH="$ROOT_DIR/lib/python2.7/dist-packages":$PYTHONPATH

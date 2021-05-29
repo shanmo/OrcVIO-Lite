@@ -1,0 +1,38 @@
+object_classes:
+
+  #--------------------------------------------------------------------------------------------
+  # for car category 
+  #--------------------------------------------------------------------------------------------
+  car:
+    keypoints_num: 12
+    object_keypoints_mean:
+      [-0.568, 0.568, 0.482, -0.482, -0.582,
+      0.582, 0.702, -0.702, -0.805, -0.805,
+      0.805, 0.805,
+      -0.253, -0.253, 1.570, 1.570, -1.988,
+      -1.988, 1.961, 1.961, -1.286, 1.355,
+      -1.286, 1.355,
+      1.331, 1.331, 1.331, 1.331, 0.702,
+      0.702, 0.924, 0.924, 0.329, 0.329,
+      0.329, 0.329]
+    object_mean_shape:
+      [1.6, 3.9, 1]
+    aliases:
+      - truck
+      - bus
+      - van
+    marker_color: [0.0, 0.0, 0.0]
+
+#--------------------------------------------------------------------------------------------
+# other configs 
+#--------------------------------------------------------------------------------------------
+
+# whether to fine tune object pose using Levenberg Marquardt
+# do_fine_tune_object_pose_using_lm: false 
+do_fine_tune_object_pose_using_lm: true       
+
+# The directory where result files are saved per object
+result_dir_path_object_map: "/home/erl/Workspace/orcvio_cpp/cache/object_map/"
+
+# The directory where bounding boxes are saved 
+result_dir_path_2d_bbox: "/home/erl/Workspace/orcvio_cpp/cache/object_2d_bbox_info.txt"

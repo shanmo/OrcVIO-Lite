@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<launch>
+
+  <!--node:nodelet manager launch-->
+
+  <node pkg="nodelet" type="nodelet" name="SortRos" args="standalone sort_ros/SortRos" output="screen" launch-prefix="gdb -ex run --args"/>
+  <node type="rviz" name="rviz" pkg="rviz" args="-d $(find sort_ros)/launch/display.rviz" />
+
+</launch>

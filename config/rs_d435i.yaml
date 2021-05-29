@@ -1,0 +1,136 @@
+%YAML:1.0
+
+# output directory
+output_dir: "/home/erl/Workspace/orcvio_cpp/cache/"
+
+# switches
+if_FEJ: 0    # 0(false) or 1(true)
+estimate_extrin: 0    # 0(false) or 1(true)
+estimate_td: 0    # 0(false) or 1(true)
+calib_imu_instrinsic: 0    # 0(false) or 1(true)
+
+# camera instrinsic
+camera_model: "pinhole"       # only support "pinhole"
+distortion_model: "radtan"    # only support "radtan" and "equidistant"
+resolution_width: 640
+resolution_height: 480
+intrinsics:
+   fx: 384.17102476497377
+   fy: 384.3372186440579
+   cx: 323.7997751702461
+   cy: 238.91110409779023
+distortion_coeffs:
+   k1: 0.009694051100341156
+   k2: -0.008084564032660335
+   p1: 0.00022908109336942359
+   p2: 0.0023177007244794693
+
+# imu-camera extrinsic, including spacial and temporal parameters
+T_cam_imu: !!opencv-matrix
+   rows: 4
+   cols: 4
+   dt: d
+   data:
+      [0.9999662089030257, -0.006906390871642436, -0.004459015276860498, 0.008708247801839689, 
+       0.006874866759746373, 0.9999515383335019, -0.007046785898527633, -0.02174943710377053, 
+       0.004507467043353249, 0.007015892643993886, 0.9999652293911333, -0.022785325544131582, 
+       0., 0., 0., 1. ]
+td: 0
+
+# TODO: if calibrate camera instrinsic online
+
+# visual front-end parameters
+pyramid_levels: 2
+patch_size: 21
+fast_threshold: 30
+max_iteration: 30
+track_precision: 0.01
+ransac_threshold: 1
+max_features_num: 200
+min_distance: 20
+flag_equalize: 1    # 0(false) or 1(true)
+pub_frequency: 10
+
+# window size
+sw_size: 20
+
+# online reset thresholds
+position_std_threshold: 8.0
+rotation_threshold: 0.2618
+translation_threshold: 0.4
+tracking_rate_threshold: 0.5
+
+# feature triangulation parameters
+least_observation_number: 3
+max_track_len: 6
+feature_translation_threshold: -1.0
+
+# imu and camera measurement noise parameters
+noise_gyro: 0.004
+noise_acc: 0.08
+noise_gyro_bias: 2e-6
+noise_acc_bias: 4e-5
+noise_feature: 0.008
+
+# filter intial covariance
+initial_covariance_orientation: 4e-4
+initial_covariance_velocity: 0.25
+initial_covariance_position: 1.0
+initial_covariance_gyro_bias: 4e-4
+initial_covariance_acc_bias: 0.01
+initial_covariance_extrin_rot: 3.0462e-8
+initial_covariance_extrin_trans: 9e-8
+
+# fej settings
+reset_fej_threshold: 10.11
+
+# zupt settings
+if_ZUPT_valid: 1    # 0(false) or 1(true)
+
+if_use_feature_zupt_flag: 0 # 0(false) or 1(true)
+zupt_max_feature_dis: 2e-3
+
+zupt_noise_v: 1e-2    # std
+zupt_noise_p: 1e-2
+zupt_noise_q: 3.4e-2
+
+# static initialization setting
+static_duration: 1.0
+
+# measurement rate
+imu_rate: 200
+img_rate: 30
+
+# augmented feature state settings
+# a positive value is hybrid msckf 
+max_features_in_one_grid: 0     # pure msckf if set to 0
+aug_grid_rows: 5
+aug_grid_cols: 6
+feature_idp_dim: 1              # 1 or 3
+
+# if apply Schmidt filter
+use_schmidt: 0    # 0(false) or 1(true)
+# left or right perturbation 
+use_left_perturbation_flag: 0 # 0(right) or 1(left)
+# use euler method or closed form covariance propagation 
+use_closed_form_cov_prop_flag: 1 # 0(euler method) or 1(closed form)
+# use original larvio 
+use_larvio_flag: 0 # 0(orcvio) or 1(larvio)
+
+# the threshold for chi square 
+chi_square_threshold_feat: 0.95
+# the threshold for cost in feature LM 
+feature_cost_threshold: 4.7673e-04
+# the threshold for distance check in feature LM 
+init_final_dist_threshold: 1e1
+# the flag whether we discard large update 
+discard_large_update_flag: 1
+
+# whether to use object residual to update camera pose 
+use_object_residual_update_cam_pose_flag: 0 # 0(not use) or 1(use)
+
+# whether we skip the update step 
+prediction_only_flag: 0
+
+# if using ground-truth for initilization
+initial_use_gt: 0

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<package format="2">
+    <!-- Package Information -->
+    <name>sort_ros</name>
+    <version>1.0.0</version>
+    <description>
+        Core algorithms for visual-inertial navigation algorithms.
+    </description>
+
+    <!-- Code Authors -->
+    <maintainer email="moshan@ucsd.edu">Mo Shan</maintainer>
+
+    <!-- Licensing -->
+    <license>GNU General Public License v3.0</license>
+
+    <!-- Dependencies which this package needs to build itself. -->
+    <buildtool_depend>catkin</buildtool_depend>
+
+    <!-- Dependencies needed to compile this package. -->
+    <depend>cmake_modules</depend>
+    <depend>roscpp</depend>
+    <depend>rosbag</depend>
+    <depend>tf</depend>
+    <depend>std_msgs</depend>
+    <depend>geometry_msgs</depend>
+    <depend>sensor_msgs</depend>
+    <depend>nav_msgs</depend>
+    <depend>visualization_msgs</depend>
+    <depend>cv_bridge</depend>
+    <depend>darknet_ros_msgs</depend>
+    <depend>nodelet</depend>
+    <depend>image_transport</depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <nodelet plugin="${prefix}/nodelet_plugins.xml" />
+  </export>
+
+</package>

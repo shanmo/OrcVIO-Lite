@@ -1,0 +1,9 @@
+<!-- <library path="lib/libMyNodeletClass"> -->
+<library path="lib/libsort_core_lib">
+  <!-- <class name="example_pkg/MyNodeletClass" type="example_pkg::MyNodeletClass" base_class_type="nodelet::Nodelet"> -->
+  <class name="sort_ros/SortRos" type="sort_ros::SortRos" base_class_type="nodelet::Nodelet">
+  <description>
+  This is a sort ROS Nodelet
+  </description>
+  </class>
+</library>
