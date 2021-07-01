@@ -28,12 +28,6 @@ find_package(catkin REQUIRED COMPONENTS
     std_srvs
     sort_ros 
 )
-find_package(arl_perception_msgs QUIET)
-if (${arl_perception_msgs_FOUND})
-  ## message("arl_perception_msgs_FOUND; ${arl_perception_msgs_FOUND}")
-  add_definitions("-DENABLE_ARL_PERCEPTION_MSGS")
-  include_directories(${arl_perception_msgs_INCLUDE_DIRS})
-endif()
 
 ## System dependencies are found with CMake's conventions
 find_package(Boost REQUIRED)
@@ -160,7 +154,6 @@ add_dependencies(object_mapper
 )
 target_link_libraries(object_mapper
   ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} ${Boost_LIBRARIES}
-  ${arl_perception_msgs_LIBRARIES}
   )
 
 # System Manager nodelet

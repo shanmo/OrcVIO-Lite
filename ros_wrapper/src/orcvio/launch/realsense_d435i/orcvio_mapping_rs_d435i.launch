@@ -4,18 +4,16 @@
   <arg name="fixed_frame_id" default="world"/>
 
   <!-- bag parameters -->
-  <arg name="path_bag" default="/home/erl/Jinzhao/orcvio/rosbags/tracking/round_trip_2021-01-10-21-04-45.bag" />
+  <arg name="path_bag" default="" />
   
-
   <arg name="visualize_rviz" default="true" />
   
   <!-- evaluation mode is used to compare the results of different flags -->
   <arg name="evaluation_mode" default="false" />
 
-  <!--arg name="image_topic" default="/camera/infra1/image_rect" /-->
   <arg name="image_topic" default="/camera/image_raw" />
 
-  <!--node name="republish" type="republish" pkg="image_transport" output="screen" args="compressed in:=/camera/infra1/image_rect_raw  raw out:=$(arg image_topic)" /-->
+  <node name="republish" type="republish" pkg="image_transport" output="screen" args="compressed in:=/camera/infra1/image_rect_raw  raw out:=$(arg image_topic)" />
 
   <!-- System Manager Nodelet  -->
   <group ns="$(arg robot)">

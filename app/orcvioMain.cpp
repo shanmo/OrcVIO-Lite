@@ -52,9 +52,9 @@ int main(int argc, char **argv)
 	imu_data_dir = "/home/erl/data/euroc/MH_01_easy/mav0/imu0/data.csv";
 	img_info_dir = "/home/erl/data/euroc/MH_01_easy/mav0/cam0/data.csv";
 	img_data_dir = "/home/erl/data/euroc/MH_01_easy/mav0/cam0/data";
-    out_data_dir = "/home/erl/.cache/euroc/MH_01_easy/mav0/"
-	config_file = "/home/erl/jinzhao/OrcVIO/OrcVIO_Lite/config/euroc.yaml";
 	gt_pose_file = "/home/erl/data/euroc/MH_01_easy/mav0/state_groundtruth_estimate0/data.txt";
+    out_data_dir = "/home/erl/.cache/euroc/MH_01_easy/mav0/"
+	config_file = "/home/erl/OrcVIO_Lite/config/euroc.yaml";
 #else
 	if (argc < 6 || argc > 7)
 	{

@@ -1,8 +1,5 @@
 %YAML:1.0
 
-# output directory
-output_dir: "/home/erl/Workspace/orcvio_cpp/cache/"
-
 # switches
 if_FEJ: 0    # 0(false) or 1(true)
 estimate_extrin: 0    # 0(false) or 1(true)

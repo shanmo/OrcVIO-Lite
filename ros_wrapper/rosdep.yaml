@@ -1,7 +1,0 @@
-suitesparse:
-  ubuntu: [libsuitesparse-dev]
-
-sophus:
-  ubuntu:
-    xenial: [ros-kinetic-sophus]
-    bionic: [ros-melodic-sophus]

@@ -24,9 +24,6 @@ namespace orcvio
 
         // quadrics publishing
         pub_quadrics = nh.advertise<visualization_msgs::MarkerArray>("/orcvio/quadrics", 2);
-#ifdef ENABLE_ARL_PERCEPTION_MSGS
-        pub_arl_detected_objects = nh.advertise<arl_perception_msgs::DetectedObjectArray>("/orcvio/arl_detected_objects", 10);
-#endif // ENABLE_ARL_PERCEPTION_MSGS
         ROS_INFO("Publishing: %s", pub_quadrics.getTopic().c_str());
 
         pub_gt_objects = nh.advertise<visualization_msgs::MarkerArray>("/orcvio/gt_objects", 2);
@@ -605,9 +602,6 @@ namespace orcvio
         }
 
         publish_quadrics();
-#ifdef ENABLE_ARL_PERCEPTION_MSGS
-        publish_arl_detected_objects();
-#endif // ENABLE_ARL_PERCEPTION_MSGS
     }
 
     void ObjectInitNode::publish_gt_objects()
@@ -822,86 +816,6 @@ namespace orcvio
         // Publish
         pub_quadrics.publish(markers);
     }
-
-#ifdef ENABLE_ARL_PERCEPTION_MSGS
-    void ObjectInitNode::publish_arl_detected_objects() {
-        arl_perception_msgs::DetectedObjectArray arl_detected_objects;
-        arl_detected_objects.header.stamp = ros::Time::now();
-        arl_detected_objects.header.frame_id = fixed_frame_id;
-        for (const auto &object_pair : all_object_states_dict) {
-            auto const& object = object_pair.second;
-
-            auto class_name_iter = object_standardized_class_name_.find(object.object_class);
-            if (class_name_iter == object_standardized_class_name_.end()) {
-                // unknown object class
-                ROS_WARN_STREAM_ONCE_NAMED(
-                    "UnknownClass" + object.object_class,
-                    "Ignoring unknown object class: " <<
-                    object.object_class);
-                continue;
-            }
-            auto const& class_name = class_name_iter->second;
-            arl_perception_msgs::ObjectClass type;
-            type.name = object.object_class;
-            type.id = std::hash<std::string>{}(class_name);
-            type.color = object_marker_colors_[class_name];
-            arl_perception_msgs::Classification classification;
-            classification.time = arl_detected_objects.header.stamp;
-            classification.confidence = 1.0; // TODO: There must be something about confidence
-            classification.tracking_id = object.object_id;
-            classification.type = type;
-
-            geometry_msgs::PolygonStamped bounds;
-            bounds.header = arl_detected_objects.header;
-
-            double dim_x = object.ellipsoid_shape(0, 0) / 2;
-            double dim_y = object.ellipsoid_shape(1, 0) / 2;
-            double dim_z = object.ellipsoid_shape(2, 0) / 2;
-            geometry_msgs::Point32 point;
-            point.x = -dim_x, point.y = -dim_y, point.z = -dim_z; bounds.polygon.points.push_back(point);
-            point.x = -dim_x, point.y =  dim_y, point.z = -dim_z; bounds.polygon.points.push_back(point);
-            point.x =  dim_x, point.y =  dim_y, point.z = -dim_z; bounds.polygon.points.push_back(point);
-            point.x =  dim_x, point.y = -dim_y, point.z = -dim_z; bounds.polygon.points.push_back(point);
-            point.x =  dim_x, point.y = -dim_y, point.z =  dim_z; bounds.polygon.points.push_back(point);
-            point.x = -dim_x, point.y = -dim_y, point.z =  dim_z; bounds.polygon.points.push_back(point);
-            point.x = -dim_x, point.y =  dim_y, point.z =  dim_z; bounds.polygon.points.push_back(point);
-            point.x =  dim_x, point.y =  dim_y, point.z =  dim_z; bounds.polygon.points.push_back(point);
-            point.x =  dim_x, point.y = -dim_y, point.z =  dim_z; bounds.polygon.points.push_back(point);
-
-            geometry_msgs::PoseStamped pose;
-            pose.header = arl_detected_objects.header;
-            Eigen::Matrix<double, 4, 4> pose_SE3 = object.object_pose;
-            pose.pose.position.x = pose_SE3(0, 3);
-            pose.pose.position.y = pose_SE3(1, 3);
-            pose.pose.position.z = pose_SE3(2, 3);
-
-            // convert to quaternion
-            Matrix3d R;
-            R = pose_SE3.block(0, 0, 3, 3);
-            Eigen::Quaterniond q = Eigen::Quaterniond(R);
-            // normalize the quaternion
-            q = q.normalized();
-            pose.pose.orientation.x = q.x();
-            pose.pose.orientation.y = q.y();
-            pose.pose.orientation.z = q.z();
-            pose.pose.orientation.w = q.w();
-            arl_perception_msgs::DetectedObject arl_object;
-            arl_object.classification = classification;
-            arl_object.bounds = bounds;
-            arl_object.pose = pose;
-            if (already_published_objects_.find(object.object_id)
-                != already_published_objects_.end()) {
-                // The object has already been published.
-                // Override with the already publish object.
-                arl_object = already_published_objects_[object.object_id];
-            } else {
-                already_published_objects_[object.object_id] = arl_object;
-            }
-            arl_detected_objects.objects.push_back(arl_object);
-        }
-        pub_arl_detected_objects.publish(arl_detected_objects);
-    }
-#endif // ENABLE_ARL_PERCEPTION_MSGS
 
     void ObjectInitNode::save_kps_to_file(const int &object_id, const Eigen::Matrix3Xd &valid_shape_global_frame, std::string filepath_format)
     {

@@ -12,15 +12,6 @@
 - [darknet ros bridge](https://github.com/moshanATucsd/OrcVIO_Lite/tree/master/ros_wrapper/src/darknet_ros_bridge)
 - [wm_od_interface_msgs](https://gitlab.sitcore.net/aimm/phoenix-r1/-/tree/master/src/common_msgs/wm_od_interface_msgs)
 
-## how to run 
-
-- to run demo, download [outdoor_demo_test_2020-11-04-15-48-26.bag](https://drive.google.com/file/d/1IGFBNmGfRKs2cQgWPY9BtWZwlkCk4hi8/view?usp=sharing), [MIT video demo](https://drive.google.com/file/d/1CaUvrl5Zv_wmZtFvNYnEU4-qYAkV2R-y/view?usp=sharing)
-```script
-roslaunch sort_ros sort_ros_test_dcist.launch
-```
-
-- another demo is using [medfield_ft2_2020-11-06-11-58-28.bag](https://drive.google.com/file/d/1pSXG3R4_fK4BxNGixZNyEFWh3uliUKMg/view?usp=sharing), and video is [Medfield demo video](https://drive.google.com/file/d/15JFBNeN7NzU752RM2gZVeDb-7FRbVQqO/view?usp=sharing)
-
 ## notes 
 
 * we only track valid class, e.g. barrel, which can be set in `gen_class` function 

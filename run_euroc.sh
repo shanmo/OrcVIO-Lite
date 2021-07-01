@@ -17,7 +17,7 @@ if [[ -e "$path"  ]]; then
                        $path/acl_jackal/forward-infra1/data.csv \
                        $path/acl_jackal/forward-infra1/data \
                        $output/ \
-                       config/jackal_phoenix.yaml
+                       config/rs_d435i.yaml
     else
         echo "bad dataset dir. $path."
     fi

@@ -2,15 +2,12 @@
 
   <arg name="robot" default="orcvio_robot"/>
   <arg name="fixed_frame_id" default="world"/>
-  
+
+  <!-- bag parameters -->
+  <arg name="path_bag" default="" />
+
   <arg name="visualize_rviz" default="true" />
-
-  <!-- evaluation mode is used to compare the results of different flags -->
-  <!-- <arg name="evaluation_mode" default="true" />   -->
-  <arg name="evaluation_mode" default="false" />
-
-  <!-- <node name="republish" type="republish" pkg="image_transport" output="screen" args="compressed in:=/$(arg name)/forward/infra1/image_rect_raw raw out:=/$(arg name)/forward/color/image_rect" /> -->
-  <node name="republish" type="republish" pkg="image_transport" output="screen" args="compressed in:=/camera/infra1/image_rect_raw  raw out:=/camera/infra1/image_rect" />
+  <node name="republish" type="republish" pkg="image_transport" output="screen" args="compressed in:=/camera/infra1/image_rect_raw  raw out:=/camera/infra1/image_rect_raw" />
 
   <!-- System Manager Nodelet  -->
   <group ns="$(arg robot)">
@@ -22,14 +19,10 @@
       <param name="child_frame_id" value="odom"/>
 
       <remap from="~imu" to="/camera/imu"/>
-      <remap from="~cam0_image" to="/camera/infra1/image_rect"/>
+      <remap from="~cam0_image" to="/camera/infra1/image_rect_raw"/>
 
       <param name="config_file" value="$(find orcvio)/../../../config/rs_d435i.yaml"/>
       <param name="result_file" value="$(find orcvio)/../../../cache/temp_rmse.txt"/>
-
-      <param name="evaluation_mode_flag" type="int" value="1" if="$(arg evaluation_mode)"/>
-      <param name="evaluation_mode_flag" type="int" value="0" unless="$(arg evaluation_mode)"/>
-
 
       <param name="load_groundtruth_flag" type="int" value="0"/>
       <!-- <param name="use_left_perturbation_flag" type="int" value="1" /> -->
@@ -37,6 +30,8 @@
     </node>
   </group>
 
+    <!-- play the dataset -->
+    <node pkg="rosbag" type="play" name="rosbag" args="$(arg path_bag)" required="true"/>
     
     <!-- open rviz  -->
     <group if="$(arg visualize_rviz)" >

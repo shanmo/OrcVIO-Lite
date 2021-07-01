@@ -519,10 +519,7 @@ namespace orcvio
         Eigen::Vector3d empirical_bbox_scale;
         // default values 
         // empirical_bbox_scale << 1.0, 1.0, 1.0;
-        // for medfield 
-        // empirical_bbox_scale << 0.25, 0.25, 0.25;
-        // for phoenix 
-        // add this since the detected bounding box is larger than object 
+        // for ERL demo
         empirical_bbox_scale << .3, .3, .5;
         // for unity 
         // empirical_bbox_scale << 0.6, 0.6, 0.6;

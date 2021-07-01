@@ -316,8 +316,9 @@ namespace sort_ros
         // for visma dataset
         // class_labels.insert("chair");
 
-        // for dcist 
-        class_labels.insert("barrel");
+        // for erl 
+        class_labels.insert("chair");
+        class_labels.insert("tvmonitor");
     }
 
 

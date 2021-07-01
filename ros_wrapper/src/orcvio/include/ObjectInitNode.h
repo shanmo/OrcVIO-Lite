@@ -46,10 +46,6 @@
 #include <Eigen/Eigen>
 #include <Eigen/StdVector>
 
-#ifdef ENABLE_ARL_PERCEPTION_MSGS
-#include "arl_perception_msgs/DetectedObjectArray.h"
-#endif // ENABLE_ARL_PERCEPTION_MSGS
-
 #include "sort_ros/TrackedBoundingBoxes.h"
 
 #include "orcvio/utils/math_utils.hpp"
@@ -160,13 +156,6 @@ class ObjectInitNode
      */
     void publish_quadrics();
 
-#ifdef ENABLE_ARL_PERCEPTION_MSGS
-    /**
-     * @brief plot the arl_perception_msgs DetectedObjectArray  
-     */
-    void publish_arl_detected_objects();
-#endif // ENABLE_ARL_PERCEPTION_MSGS
-
     /**
      * @brief plot the gt objects   
      */
@@ -223,10 +212,6 @@ class ObjectInitNode
 
     // publishers 
     ros::Publisher pub_quadrics;
-#ifdef ENABLE_ARL_PERCEPTION_MSGS
-    ros::Publisher pub_arl_detected_objects;
-    std::unordered_map<int, arl_perception_msgs::DetectedObject> already_published_objects_;
-#endif // ENABLE_ARL_PERCEPTION_MSGS
     ros::Publisher pub_gt_objects;
 
     // for plotting 
