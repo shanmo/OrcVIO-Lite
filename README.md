@@ -6,7 +6,7 @@
 OrcVIO-Lite only uses **bounding boxs** and no keypoints. The object mapping module and VIO module are implemented in separate ROS nodelets and are decoupled.  
 
 - Related publication: [OrcVIO: Object residual constrained Visual-Inertial Odometry](https://arxiv.org/pdf/2007.15107.pdf), this is the journal version submitted t T-RO. 
-- [Project website](http://me-llamo-sean.cf/orcvio_githubpage/)
+- [Project website](https://moshan.cf/orcvio_githubpage/)
 
 ### Citation
 
