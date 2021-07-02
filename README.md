@@ -13,7 +13,7 @@ OrcVIO-Lite only uses **bounding boxs** and no keypoints. The object mapping mod
 ```
 @article{orcvio,
   title={OrcVIO: Object residual constrained Visual-Inertial Odometry},
-  author={M. {Shan} and Q. {Feng} and N. {Atanasov}},
+  author={M. {Shan} and V. {Dhiman} and Q. {Feng} and J. {Li} and N. {Atanasov}},
   url = {http://erl.ucsd.edu/pages/orcvio.html},
   pdf = {https://arxiv.org/abs/2007.15107},
   journal={IEEE Transactions on Robotics},
