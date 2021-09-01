@@ -1,0 +1,3 @@
+[submodule "ros_wrapper/src/catkin_simple"]
+	path = ros_wrapper/src/catkin_simple
+	url = https://github.com/catkin/catkin_simple

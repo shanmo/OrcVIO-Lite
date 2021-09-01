@@ -13,7 +13,9 @@
 
   <arg name="image_topic" default="/camera/image_raw" />
 
-  <node name="republish" type="republish" pkg="image_transport" output="screen" args="compressed in:=/camera/infra1/image_rect_raw  raw out:=$(arg image_topic)" />
+  <node name="republish_img" type="republish" pkg="image_transport" output="screen" args="compressed in:=/camera/infra1/image_rect_raw  raw out:=$(arg image_topic)" />
+
+  <node name="republish_darknet_img" type="republish" pkg="image_transport" output="screen" args="compressed in:=/darknet_ros/detection_image  raw out:=/darknet_ros/detection_image" />
 
   <!-- System Manager Nodelet  -->
   <group ns="$(arg robot)">
@@ -65,7 +67,7 @@
           </rosparam>
 
           <!-- bag topics -->
-          <param name="topic_bbox"  type="string" value="/SortRos/tracked_bbox" />
+          <param name="topic_bbox"  type="string" value="/sort_ros/tracked_bounding_boxes" />
 
           <param name="topic_image"  type="string" value="$(arg image_topic)" />
           <param name="topic_caminfo"  type="string" value="/camera/infra1/camera_info" />          
@@ -95,7 +97,7 @@
     
     <!-- open rviz  -->
     <group if="$(arg visualize_rviz)" >
-      <node type="rviz" name="rviz" pkg="rviz" args="-d $(find orcvio)/../../../ros_wrapper/src/orcvio/launch/rviz/orcvio_erl_rs_d435i_object.rviz" />
+      <node type="rviz" name="rviz" pkg="rviz" args="-d $(find orcvio)/../../../ros_wrapper/src/orcvio/launch/rviz/orcvio_mapping_rs_d435i.rviz" />
     </group>
 
 </launch>

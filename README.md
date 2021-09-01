@@ -3,26 +3,22 @@
 ### About 
 
 - Object residual constrained Visual-Inertial Odometry (OrcVIO) is a visual-inertial odometry pipeline, which is tightly coupled with tracking and optimization over structured object models. It provides accurate trajectory estimation and large-scale object-level mapping from online **Mono+IMU** data.
-OrcVIO-Lite only uses **bounding boxs** and no keypoints. The object mapping module and VIO module are implemented in separate ROS nodelets and are decoupled.  
 
-- Related publication: [OrcVIO: Object residual constrained Visual-Inertial Odometry](https://arxiv.org/pdf/2007.15107.pdf), this is the journal version submitted to T-RO. 
-- [Project website](https://moshan.cf/orcvio_githubpage/)
+- OrcVIO-Lite only uses **bounding boxs** and no keypoints. The object mapping module and VIO module are implemented in separate ROS nodelets and are decoupled.  
+
+- Related publication: [OrcVIO: Object residual constrained Visual-Inertial Odometry](https://arxiv.org/pdf/2007.15107.pdf), this is the journal version submitted to T-RO. [Project website](https://moshan.cf/orcvio_githubpage/)
 
 ### Citation
 
 ```
-@article{orcvio,
+@inproceedings{shan2020orcvio,
   title={OrcVIO: Object residual constrained Visual-Inertial Odometry},
-  author={M. {Shan} and V. {Dhiman} and Q. {Feng} and J. {Li} and N. {Atanasov}},
-  url = {http://erl.ucsd.edu/pages/orcvio.html},
-  pdf = {https://arxiv.org/abs/2007.15107},
-  journal={IEEE Transactions on Robotics},
-  volume={},
-  number={},
-  pages={},
-  year={2021},
-  publisher={IEEE}
-}    
+  author={Shan, Mo and Feng, Qiaojun and Atanasov, Nikolay},
+  booktitle={2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)},
+  pages={5104--5111},
+  year={2020},
+  organization={IEEE}
+}   
 ```
 
 ## 1. Prerequisites
@@ -30,7 +26,6 @@ OrcVIO-Lite only uses **bounding boxs** and no keypoints. The object mapping mod
 This repository was tested on Ubuntu 18.04 with [ROS Melodic](http://wiki.ros.org/melodic/Installation). 
 
 The core algorithm depends on `Eigen`, `Boost`, `Suitesparse`, `Ceres`, `OpenCV`, `Sophus`, `GTest`
-
 
 
 ## 2. Installation
@@ -46,9 +41,9 @@ $ cmake -D CMAKE_BUILD_TYPE=Release ..
 $ make
 ```
 
-
-
 ### 2.2 ROS version
+
+- The ROS version also depends on [catkin simple](https://github.com/catkin/catkin_simple), please put it in the `src` folder
 
 ```
 $ git clone --recursive https://github.com/shanmo/OrcVIO-Lite.git
@@ -56,8 +51,6 @@ $ cd OrcVIO-Lite/ros_wrapper
 $ catkin_make
 $ source ./devel/setup.bash
 ```
-
-
 
 ## 3. Evaluation 
 
