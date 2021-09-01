@@ -43,7 +43,7 @@ $ make
 
 ### 2.2 ROS version
 
-- The ROS version also depends on [catkin simple](https://github.com/catkin/catkin_simple), please put it in the `src` folder
+- The ROS version also depends on [catkin simple](https://github.com/catkin/catkin_simple), please put it in the `ros_wrapper/src` folder
 
 ```
 $ git clone --recursive https://github.com/shanmo/OrcVIO-Lite.git
