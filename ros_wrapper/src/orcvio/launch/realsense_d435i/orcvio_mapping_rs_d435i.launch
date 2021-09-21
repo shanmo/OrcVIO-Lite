@@ -56,7 +56,7 @@
 
           <param name="fixed_frame_id" value="$(arg fixed_frame_id)"/>
 
-          <!-- camera extrinsics -->
+          <!-- camera extrinsics, from IMU to camera, same with Kalibr -->
           <rosparam param="T_cam_imu">
               [
               0.9999662089030257, -0.006906390871642436, -0.004459015276860498, 0.008708247801839689, 

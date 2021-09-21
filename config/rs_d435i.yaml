@@ -23,6 +23,7 @@ distortion_coeffs:
    p2: 0.0023177007244794693
 
 # imu-camera extrinsic, including spacial and temporal parameters
+# from IMU to camera, same with Kalibr
 T_cam_imu: !!opencv-matrix
    rows: 4
    cols: 4
