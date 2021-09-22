@@ -12,12 +12,6 @@ if [[ -e "$path"  ]]; then
         $output/ \
         config/euroc.yaml
         python scripts/convert_csv_to_txt.py $path/mav0/state_groundtruth_estimate0/data.csv $output/stamped_groundtruth.txt
-    elif [[ -e "$path/acl_jackal/forward-imu/data.csv" ]]; then
-        ./build/orcvio $path/acl_jackal/forward-imu/data.csv \
-                       $path/acl_jackal/forward-infra1/data.csv \
-                       $path/acl_jackal/forward-infra1/data \
-                       $output/ \
-                       config/rs_d435i.yaml
     else
         echo "bad dataset dir. $path."
     fi

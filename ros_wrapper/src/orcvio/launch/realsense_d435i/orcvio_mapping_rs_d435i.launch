@@ -14,7 +14,6 @@
   <arg name="image_topic" default="/camera/image_raw" />
 
   <node name="republish_img" type="republish" pkg="image_transport" output="screen" args="compressed in:=/camera/infra1/image_rect_raw  raw out:=$(arg image_topic)" />
-
   <node name="republish_darknet_img" type="republish" pkg="image_transport" output="screen" args="compressed in:=/darknet_ros/detection_image  raw out:=/darknet_ros/detection_image" />
 
   <!-- System Manager Nodelet  -->
@@ -68,6 +67,7 @@
 
           <!-- bag topics -->
           <param name="topic_bbox"  type="string" value="/sort_ros/tracked_bounding_boxes" />
+          <!-- <param name="topic_bbox"  type="string" value="/SortRos/tracked_bbox" /> -->
 
           <param name="topic_image"  type="string" value="$(arg image_topic)" />
           <param name="topic_caminfo"  type="string" value="/camera/infra1/camera_info" />          
