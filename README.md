@@ -73,7 +73,7 @@ $ ./run_euroc.sh PATH_TO_EUROC_DATASET/
 
 - **Download dataset**
 
-  [ERL indoor dataset (chairs, monitors)](https://www.dropbox.com/s/mxin2et8io2nsab/erl_hallway_round_trip.bag?dl=0)
+  [ERL indoor dataset (chairs, monitors)](https://www.dropbox.com/s/xe5ykbylawhanft/erl_lite_realsense_demo.bag?dl=0)
 
   * Indoor rosbags were collected with [Realsense D435i](https://www.intelrealsense.com/depth-camera-d435i/) in Existential Robotics Lab, University of California San Diego.
 
@@ -91,7 +91,9 @@ $ cd OrcVIO_Lite/ros_wrapper/
 $ roslaunch orcvio orcvio_mapping_rs_d435i.launch path_bag:=PATH_TO_ERL_DATASET/
 ```
 
+- `rviz` visualization 
 
+![demo](assets/erl_realsense_demo.gif)
 
 ## 4. TODO
 
