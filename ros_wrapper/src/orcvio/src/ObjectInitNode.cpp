@@ -51,6 +51,7 @@ namespace orcvio
             }
         }
         nh.param<std::string>("result_dir_path_object_map", result_dir_path_object_map, ros_log_dir);
+        ROS_INFO("Path for storing object map: %s", result_dir_path_object_map.c_str());
 
         if (exists(result_dir_path_object_map))
         {

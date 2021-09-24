@@ -229,13 +229,15 @@ class ObjectInitNode
     ros::Subscriber sub_gtpose;
     // ros::Subscriber sub_sem;
     ros::Subscriber sub_caminfo;
-    // for plotting 
+
     std::unique_ptr<message_filters::Subscriber<sort_ros::TrackedBoundingBoxes>> sub_sem;
     // std::unique_ptr<message_filters::TimeSynchronizer<sensor_msgs::Image, sort_ros::TrackedBoundingBoxes>> sub_sem_img;
-    typedef message_filters::sync_policies::ExactTime<sensor_msgs::Image, sort_ros::TrackedBoundingBoxes> MySyncPolicy;
-    std::unique_ptr<message_filters::Synchronizer<MySyncPolicy> > sub_sem_img;
 
     std::unique_ptr<message_filters::Subscriber<sensor_msgs::Image>> sub_img;
+
+    // NOTE, this should be after Subscribers, ref https://github.com/ros/ros_comm/issues/720#issue-122475207
+    typedef message_filters::sync_policies::ExactTime<sensor_msgs::Image, sort_ros::TrackedBoundingBoxes> MySyncPolicy;
+    std::unique_ptr<message_filters::Synchronizer<MySyncPolicy> > sub_sem_img;
 
     Eigen::Matrix4d T_CtoI;
     Eigen::Matrix4d T_ItoC;

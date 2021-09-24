@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8.12)
 project(orcvio)
 
 set(CMAKE_BUILD_TYPE "Release")
+# set(CMAKE_BUILD_TYPE "Debug")
 add_compile_options(-std=c++11)
 
 # Modify cmake module path if new .cmake files are required

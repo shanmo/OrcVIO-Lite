@@ -43,6 +43,7 @@ $ make
 
 ### 2.2 ROS version
 
+- Environment is `Ubuntu 18.04` with ROS `Melodic`
 - The ROS version also depends on [catkin simple](https://github.com/catkin/catkin_simple), please put it in the `ros_wrapper/src` folder
 
 ```

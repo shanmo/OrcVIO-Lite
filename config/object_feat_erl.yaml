@@ -51,8 +51,8 @@ object_classes:
 do_fine_tune_object_pose_using_lm: true       
 
 # The directory where result files are saved per object
-result_dir_path_object_map: "$(env HOME)/.ros/log/orcvio-backend/results/"
-# result_dir_path_object_map: "/home/erl/Workspace/orcvio_cpp/cache/object_map/"
+# result_dir_path_object_map: ".ros/log/orcvio_cpp/object_map/"
+result_dir_path_object_map: "/home/erl/orcvio/OrcVIO-Lite/cache/object_map/"
 
 #--------------------------------------------------------------------------------------------
 # groundtruth object states 
