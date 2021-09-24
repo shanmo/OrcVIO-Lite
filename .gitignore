@@ -1,6 +1,7 @@
 build
 devel
 cache 
+.vscode
 
 # Prerequisites
 *.d
