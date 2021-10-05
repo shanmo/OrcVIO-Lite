@@ -96,10 +96,9 @@ $ roslaunch orcvio orcvio_mapping_rs_d435i.launch path_bag:=PATH_TO_ERL_DATASET/
 
 ![demo](assets/erl_realsense_demo.gif)
 
-## 4. TODO
+## 4. Notes 
 
-- Instruction on preparing datasets
-- More demos on public datasets
+- The path to save the object map is set in `config/object_feat_erl.yaml` by `result_dir_path_object_map`
 
  
 

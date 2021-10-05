@@ -548,8 +548,12 @@ namespace orcvio
             Eigen::Matrix<double, 3, 3> camera_intrinsics;
             cv2eigen(camK, camera_intrinsics);
 
-            assert((zb_per_frame.array().head<2>() < zb_per_frame.array().tail<2>()).all());
-            obj_obs_ptr->zb.push_back(normalize_bbox(zb_per_frame, camera_intrinsics));
+            // assert((zb_per_frame.array().head<2>() < zb_per_frame.array().tail<2>()).all());
+            if ((zb_per_frame.array().head<2>() < zb_per_frame.array().tail<2>()).all())
+                obj_obs_ptr->zb.push_back(normalize_bbox(zb_per_frame, camera_intrinsics));
+            else {
+                std::cout << "[WARN]: zb_per_frame wrong format " << zb_per_frame << std::endl; 
+            }
 
             draw_bbox(track_image, bbox.xmin, bbox.ymin, bbox.xmax, bbox.ymax);
         }
