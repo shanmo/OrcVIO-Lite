@@ -93,8 +93,8 @@ $ roslaunch orcvio orcvio_mapping_rs_d435i.launch path_bag:=PATH_TO_ERL_DATASET/
 ```
 
 - `rviz` visualization 
-
-![demo](assets/erl_realsense_demo.gif)
+> ![demo](assets/erl_realsense_demo.gif)
+![demo2](assets/orcvio-lite-unity-demo.gif)
 
 ## 4. Notes 
 
